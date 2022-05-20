@@ -1,5 +1,4 @@
 import './App.css';
-import { element } from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
 //defaultGuestlists will later be filled with guests recieved from the API
