@@ -255,9 +255,9 @@ function NameInputComponent() {
       <section css={topSectionStyle}>
         <p>GUESTS</p>
         <div css={inputFieldStyle}>
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="firstName">First name</label>
           <input id="firstName" ref={firstNameInput} />
-          <label htmlFor="lastName">Last Name</label>
+          <label htmlFor="lastName">Last name</label>
           <input id="lastName" onKeyDown={createGuest} ref={lastNameInput} />
         </div>
       </section>
