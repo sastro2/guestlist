@@ -279,7 +279,7 @@ function NameInputComponent() {
                 css={guestlistItemsStyle}
               >
                 <div css={guestlistNamesStyle}>
-                  {guest.firstName}-{guest.lastName}
+                  {guest.firstName} {guest.lastName}
                 </div>
                 <div css={guestlistOptionsStyle}>
                   <label htmlFor="attendingBox">Attending</label>
@@ -288,6 +288,7 @@ function NameInputComponent() {
                     type="checkbox"
                     onChange={() => changeIsAttendingStatus(guest)}
                     defaultChecked={guest.attending}
+                    aria-label="is attending"
                   />
                   <button
                     onClick={() => removeGuestOnClick(guest)}
