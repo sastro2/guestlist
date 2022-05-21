@@ -292,8 +292,9 @@ function NameInputComponent() {
                   <button
                     onClick={() => removeGuestOnClick(guest)}
                     css={guestlistDeleteButtonStyle}
+                    aria-label="Remove guest"
                   >
-                    Delete guest
+                    Remove guest
                   </button>
                 </div>
               </div>
