@@ -160,6 +160,8 @@ function NameInputComponent() {
     });
   }, [changeState]);
 
+  console.log(guestlist);
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
