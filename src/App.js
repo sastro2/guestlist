@@ -250,116 +250,109 @@ function NameInputComponent() {
     }
   };
 
-  if (!loading) {
-    return (
-      <div css={baseStyle}>
-        <section css={topSectionStyle}>
-          <p>GUESTS</p>
-          <div css={inputFieldStyle}>
-            <label htmlFor="firstName">First Name</label>
-            <input id="firstName" type="text" ref={firstNameInput}></input>
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              id="lastName"
-              type="text"
-              onKeyDown={createGuest}
-              ref={lastNameInput}
-            ></input>
-          </div>
-        </section>
-        <ul css={guestlistStyles}>
-          {guestlist.map((guest) => {
-            console.log(
-              attendingCheckboxChecked,
-              nonAttendingCheckboxChecked,
-              guest.attending,
-            );
-            if (
-              (attendingCheckboxChecked && guest.attending) ||
-              (nonAttendingCheckboxChecked && !guest.attending)
-            ) {
-              return (
-                <div
-                  key={guest.id}
-                  data-test-id="guest"
-                  css={guestlistItemsStyle}
-                >
-                  <div css={guestlistNamesStyle}>
-                    {guest.firstName}-{guest.lastName}
-                  </div>
-                  <div css={guestlistOptionsStyle}>
-                    <label htmlFor="attendingBox">Attending</label>
-                    <input
-                      id="attendingBox"
-                      type="checkbox"
-                      onChange={() => changeIsAttendingStatus(guest)}
-                      defaultChecked={guest.attending}
-                    ></input>
-                    <button
-                      onClick={() => removeGuestOnClick(guest)}
-                      css={guestlistDeleteButtonStyle}
-                    >
-                      Delete guest
-                    </button>
-                  </div>
+  return (
+    <div css={baseStyle}>
+      <section css={topSectionStyle}>
+        <p>GUESTS</p>
+        <div css={inputFieldStyle}>
+          <label htmlFor="firstName">First Name</label>
+          <input id="firstName" ref={firstNameInput} />
+          <label htmlFor="lastName">Last Name</label>
+          <input id="lastName" onKeyDown={createGuest} ref={lastNameInput} />
+        </div>
+      </section>
+      <ul css={guestlistStyles}>
+        {guestlist.map((guest) => {
+          console.log(
+            attendingCheckboxChecked,
+            nonAttendingCheckboxChecked,
+            guest.attending,
+          );
+          if (
+            (attendingCheckboxChecked && guest.attending) ||
+            (nonAttendingCheckboxChecked && !guest.attending)
+          ) {
+            return (
+              <div
+                key={guest.id}
+                data-test-id="guest"
+                css={guestlistItemsStyle}
+              >
+                <div css={guestlistNamesStyle}>
+                  {guest.firstName}-{guest.lastName}
                 </div>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </ul>
-        {guestlist.some((g) => g.attending) ? (
-          <div css={removeAllAttendingGuestsStyle}>
-            <button onClick={removeAllAttendingGuests}>
-              Remove all attending guests
-            </button>
+                <div css={guestlistOptionsStyle}>
+                  <label htmlFor="attendingBox">Attending</label>
+                  <input
+                    id="attendingBox"
+                    type="checkbox"
+                    onChange={() => changeIsAttendingStatus(guest)}
+                    defaultChecked={guest.attending}
+                  />
+                  <button
+                    onClick={() => removeGuestOnClick(guest)}
+                    css={guestlistDeleteButtonStyle}
+                  >
+                    Delete guest
+                  </button>
+                </div>
+              </div>
+            );
+          } else {
+            return null;
+          }
+        })}
+      </ul>
+      {guestlist.some((g) => g.attending) ? (
+        <div css={removeAllAttendingGuestsStyle}>
+          <button onClick={removeAllAttendingGuests}>
+            Remove all attending guests
+          </button>
+        </div>
+      ) : (
+        <div css={removeAllAttendingGuestsDisabledStyle}>
+          <button disabled>Remove all attending guests</button>
+        </div>
+      )}
+      <section css={filtersStyle}>
+        <div css={filterCheckboxesStyle}>
+          <div css={showAttendingGuestsBoxStyle}>
+            <label htmlFor="checkbox_1">show attending guests</label>
+            <input
+              id="checkbox_1"
+              type="checkbox"
+              defaultChecked={true}
+              onChange={handleAttendingCheckbox}
+              ref={(element) => {
+                handleFilters.current[0] = element;
+              }}
+            />
           </div>
+          <div css={showNonAttendingGuestsBoxStyle}>
+            <label htmlFor="checkbox_2">show non-attending guests</label>
+            <input
+              id="checkbox_2"
+              type="checkbox"
+              defaultChecked={true}
+              onChange={handleNonAttendingCheckbox}
+              ref={(element) => {
+                handleFilters.current[1] = element;
+              }}
+            />
+          </div>
+        </div>
+        {!attendingCheckboxChecked || !nonAttendingCheckboxChecked ? (
+          <button onClick={resetAllFilters} css={resetAllFiltersStyle}>
+            Reset filters
+          </button>
         ) : (
-          <div css={removeAllAttendingGuestsDisabledStyle}>
-            <button disabled>Remove all attending guests</button>
-          </div>
+          <button disabled css={resetAllFiltersDisabledStyle}>
+            Reset filters
+          </button>
         )}
-        <section css={filtersStyle}>
-          <div css={filterCheckboxesStyle}>
-            <div css={showAttendingGuestsBoxStyle}>
-              <label htmlFor="checkbox_1">show attending guests</label>
-              <input
-                id="checkbox_1"
-                type="checkbox"
-                defaultChecked={true}
-                onChange={handleAttendingCheckbox}
-                ref={(element) => {
-                  handleFilters.current[0] = element;
-                }}
-              ></input>
-            </div>
-            <div css={showNonAttendingGuestsBoxStyle}>
-              <label htmlFor="checkbox_2">show non-attending guests</label>
-              <input
-                id="checkbox_2"
-                type="checkbox"
-                defaultChecked={true}
-                onChange={handleNonAttendingCheckbox}
-                ref={(element) => {
-                  handleFilters.current[1] = element;
-                }}
-              ></input>
-            </div>
-          </div>
-          {!attendingCheckboxChecked || !nonAttendingCheckboxChecked ? (
-            <button onClick={resetAllFilters} css={resetAllFiltersStyle}>
-              Reset filters
-            </button>
-          ) : (
-            <button disabled css={resetAllFiltersDisabledStyle}>
-              Reset filters
-            </button>
-          )}
-        </section>
-      </div>
-    );
-  }
+      </section>
+    </div>
+  );
 }
 
 function App() {
