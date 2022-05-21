@@ -3,7 +3,7 @@ import './App.css';
 import { css } from '@emotion/react';
 import { useEffect, useRef, useState } from 'react';
 
-const baseURL = `http://guestlist-server.herokuapp.com`;
+const baseURL = `http://localhost:4000`;
 
 const baseStyle = css`
   display: flex;
